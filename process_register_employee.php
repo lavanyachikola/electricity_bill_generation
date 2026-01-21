@@ -88,11 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <?php if ($success): ?>
-    <h2>✅ Employee Registered Successfully</h2>
+    <h2>Employee Registered Successfully</h2>
     <p>Name: <?= htmlspecialchars($name) ?></p>
     <a href="admin_dashboard.php">Back to Dashboard</a>
 <?php else: ?>
-    <h2 style="color:red;">❌ Registration Failed</h2>
+    <h2 style="color:red;"> Registration Failed</h2>
     <p><?= htmlspecialchars($error_msg) ?></p>
     <a href="register_employee.php">Try Again</a>
 <?php endif; ?>
