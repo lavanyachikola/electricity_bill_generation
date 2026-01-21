@@ -7,7 +7,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
 
 require 'db.php';
 
-/* JOIN bills + users */
 $sql = "
 SELECT 
     b.bill_number,
