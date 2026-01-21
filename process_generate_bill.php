@@ -16,10 +16,9 @@ if ($service_number === '' || $current === null) {
     die("Invalid input");
 }
 
-/* NORMALIZE SERVICE NUMBER */
+
 $service_number = trim(strtolower($service_number));
 
-/* CHECK USER EXISTS */
 $stmt = $conn->prepare(
     "SELECT * FROM users WHERE service_number = ? AND role = 'User'"
 );
@@ -33,7 +32,6 @@ if ($res->num_rows === 0) {
 
 $user = $res->fetch_assoc();
 
-/* GET PREVIOUS READING */
 $stmt2 = $conn->prepare(
     "SELECT current_reading 
      FROM meter_readings 
@@ -73,7 +71,6 @@ if ($is_first) {
     $bill_amount = $units * ($rates[$user['category']] ?? 5);
 }
 
-/* PREVIOUS DUE */
 $stmt3 = $conn->prepare(
     "SELECT COALESCE(SUM(total_amount),0) AS due
      FROM bills
@@ -85,7 +82,6 @@ $prev_due = (int)$stmt3->get_result()->fetch_assoc()['due'];
 
 $total_amount = $bill_amount + $prev_due;
 
-/* INSERT METER READING */
 $stmt4 = $conn->prepare(
     "INSERT INTO meter_readings
      (service_number, previous_reading, current_reading, reading_date)
@@ -94,7 +90,6 @@ $stmt4 = $conn->prepare(
 $stmt4->bind_param("sii", $service_number, $previous, $current);
 $stmt4->execute();
 
-/* INSERT BILL */
 $bill_number = rand(1000, 9999);
 
 $stmt5 = $conn->prepare(
