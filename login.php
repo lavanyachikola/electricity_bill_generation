@@ -68,7 +68,7 @@ button:hover{
 <input type="text" name="name" placeholder="Enter Name" required>
 <input type="password" name="password" placeholder="Password" required>
 
-<!-- ✅ MISSING BUTTON FIXED -->
+
 <button type="submit">Login</button>
 
 </form>
